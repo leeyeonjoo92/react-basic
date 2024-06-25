@@ -52,17 +52,19 @@ function App() {
   // ExpenseItem / Expenses / App 이렇게 3개
   // App.js -> state를 다루는 로직은 state를 관리하는 로직에 가까이 붙여서 작성하는게 덜 헷갈림
 
-  // 리스트에서 원하는 값을 정확히 찾으려면 겹치지 않는 값인 id를 매개변수로 받는게 좋음
-  // 1. Expenses 컴포넌트에서 id값을 받아야하니까 함수를 props로 넘겨줌
-  // 2. Expenses.js 파일에서 props.deleteExpenseItem로 받고, id값도 받음.
-  // 3. ExpensesItem.js 파일에서도 버튼 클릭시 props.deleteExpenseItem.id를 받아줘야함
-  const deleteExpenseItem = (id) => {
-    console.log(id);
-    // 삭제 방법 1. filter
-    // true의 경우의 값만 필터링해서 새로운 배열을 만들겠다.
-    // 삭제를 누른 id를 제외하고 나머지 id들로 새로운 배열을 만들겠다.
-    const newFilteredArray = expenses.filter((item) => item.id != id);
-    setExpenses(newFilteredArray);
+  // 리스트에서 원하는 값을 정확히 찾으려면 겹치지 않는 값인 index를 매개변수로 받는게 좋음
+  // 1. Expenses 컴포넌트에서 index값을 받아야하니까 함수를 props로 넘겨줌
+  // 2. Expenses.js 파일에서 props.deleteExpenseItem로 받고, index값도 받음.
+  // 3. ExpensesItem.js 파일에서도 버튼 클릭시 props.deleteExpenseItem.index를 받아줘야함
+  const deleteExpenseItem = (index) => {
+    // 삭제 방법 2. slice
+    // 시작부터 끝까지 자름, 인덱스값 필요
+    // 0 ~ index-1 인 배열과 index+1 ~ n-1 까지의 배열을 하나로 합치면됨
+    // 0부터 index전까지
+    const beforeArray = expenses.slice(0, index);
+    // index+1부터 끝까지(끝까지는 생략가능)
+    const afterArray = expenses.slice(index + 1);
+    setExpenses([...beforeArray, ...afterArray]);
   };
 
   return (
