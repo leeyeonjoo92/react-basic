@@ -10,6 +10,7 @@ function App() {
       title: "수건",
       amount: 12.33,
       date: new Date(2025, 8, 14),
+      color: "#ffffff",
       isChecked: true,
     },
     {
@@ -17,6 +18,7 @@ function App() {
       title: "물티슈",
       amount: 12.33,
       date: new Date(2025, 8, 14),
+      color: "#000000",
       isChecked: false,
     },
     {
@@ -24,6 +26,7 @@ function App() {
       title: "행주",
       amount: 12.33,
       date: new Date(2025, 8, 14),
+      color: "#ffff00",
       isChecked: true,
     },
   ]);
@@ -35,6 +38,7 @@ function App() {
         title: data.name,
         amount: data.price,
         date: new Date(data.today),
+        color: data.color,
         isChecked: data.isChecked,
       },
       ...expenses,

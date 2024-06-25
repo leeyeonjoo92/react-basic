@@ -7,6 +7,7 @@ const PaymentForm = ({ getPaymentFormData }) => {
     name: "",
     price: 0,
     today: new Date(),
+    color: "transparent",
     isChecked: false,
   });
 
@@ -31,8 +32,14 @@ const PaymentForm = ({ getPaymentFormData }) => {
     }));
   };
 
+  const inputColorHandler = (event) => {
+    setObjectState((prevState) => ({
+      ...prevState,
+      color: event.target.value,
+    }));
+  };
+
   const inputCheckboxHandler = (event) => {
-    console.log(event.target.checked);
     setObjectState((prevState) => ({
       ...prevState,
       isChecked: event.target.checked,
@@ -82,6 +89,15 @@ const PaymentForm = ({ getPaymentFormData }) => {
               max="2023-12-31"
               onChange={inputTodayHandler}
               value={objectState.today}
+            />
+          </div>
+          <div className="new-payment__control">
+            <label>색상 선택</label>
+            <input
+              type="color"
+              onChange={inputColorHandler}
+              value={objectState.color}
+              style={{ height: "2.5rem" }}
             />
           </div>
           <div className="new-payment__control">

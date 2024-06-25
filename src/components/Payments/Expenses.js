@@ -16,6 +16,7 @@ const Expenses = (props) => {
           amount={item.amount}
           date={item.date}
           deleteExpenseItem={props.deleteExpenseItem}
+          color={item.color}
           isChecked={item.isChecked}
         />
       ))}

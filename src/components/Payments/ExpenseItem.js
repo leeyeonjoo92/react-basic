@@ -11,6 +11,15 @@ const ExpenseItem = (props) => {
       <div className="expense-item__description">
         <h2>{props.title}</h2>
         <div className="expense-item__price">${props.amount}</div>
+        <div
+          className="expense-item__color"
+          style={{
+            width: "30px",
+            height: "30px",
+            background: props.color,
+            borderRadius: "50%",
+          }}
+        ></div>
         <div className="expense-item__checkbox">
           {props.isChecked ? "🖤" : "🤍"}
         </div>
