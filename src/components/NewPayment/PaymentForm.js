@@ -2,21 +2,15 @@ import React, { useState } from "react";
 
 import "./PaymentForm.css";
 
-// input에서 값을 받아서 콘솔에 찍기
 const PaymentForm = () => {
-  // 상태는 무조건 컴포넌트 안에서 만들어야됨
   const [objectState, setObjectState] = useState({
     name: "",
     price: 0,
-    today: null,
+    // today: null,
+    today: new Date(),
   });
 
-  // 이벤트 핸들러
-  // event : 발생하는 이벤트와 관련된 모든값들이 들어가있음
-  // event.target.value : 값을 찍을때마다 값을 받아옴
   const inputTypeTextChangeHandler = (event) => {
-    // 이전 상태를 prevState 매개변수로 받아서
-    // name은 바뀐값으로 업데이트하고 나머지는 이전값을 그대로 가지고있음
     setObjectState((prevState) => ({ ...prevState, name: event.target.value }));
   };
   const inputTypeNumberChangeHandler = (event) => {
@@ -31,19 +25,27 @@ const PaymentForm = () => {
       today: event.target.value,
     }));
   };
-  const buttonSubmitHandler = () => {
-    console.log("name", objectState.name);
-    console.log("price", objectState.price);
-    console.log("today", objectState.today);
+  const buttonSubmitHandler = (event) => {
+    // 이벤트의 기본기능 차단
+    event.preventDefault();
+    console.log(objectState);
+    // 처음값으로 초기화
+    setObjectState({
+      name: "",
+      price: 0,
+      // 날짜값은 초기화가 안됨
+      // today: null,
+      // new Date()로 수정시 초기화됨
+      today: new Date(),
+    });
   };
 
   return (
-    <form>
+    // submit 버튼 이벤트가 발생했을때 이벤트를 감지
+    <form onSubmit={buttonSubmitHandler}>
       <div className="new-payment__controls">
         <div className="new-payment__control">
           <label>이름</label>
-          {/* value : input에 입력된 값을 받을수있음 */}
-          {/* onChange : input의 값이 바뀌는 이벤트가 발생하면 핸들러 실행 */}
           <input
             type="text"
             value={objectState.name}
@@ -72,7 +74,7 @@ const PaymentForm = () => {
         </div>
       </div>
       <div className="new-payment__actions">
-        <button type="button" onClick={buttonSubmitHandler}>
+        <button type="submit" onClick={buttonSubmitHandler}>
           결제 추가
         </button>
       </div>
