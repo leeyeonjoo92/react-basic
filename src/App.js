@@ -11,6 +11,18 @@ function App() {
       amount: 12.33,
       date: new Date(2025, 8, 14),
     },
+    {
+      id: "e2",
+      title: "물티슈",
+      amount: 12.33,
+      date: new Date(2025, 8, 14),
+    },
+    {
+      id: "e3",
+      title: "행주",
+      amount: 12.33,
+      date: new Date(2025, 8, 14),
+    },
   ]);
 
   const getPaymentFormData = (data) => {
@@ -35,10 +47,28 @@ function App() {
     ]);
   };
 
+  // 삭제버튼은 ExpenseItems.js 파일에 작성함
+  // 삭제하는 로직을 작성할 수 있는 파일이 여러개 있음
+  // ExpenseItem / Expenses / App 이렇게 3개
+  // App.js -> state를 다루는 로직은 state를 관리하는 로직에 가까이 붙여서 작성하는게 덜 헷갈림
+
+  // 리스트에서 원하는 값을 정확히 찾으려면 겹치지 않는 값인 id를 매개변수로 받는게 좋음
+  // 1. Expenses 컴포넌트에서 id값을 받아야하니까 함수를 props로 넘겨줌
+  // 2. Expenses.js 파일에서 props.deleteExpenseItem로 받고, id값도 받음.
+  // 3. ExpensesItem.js 파일에서도 버튼 클릭시 props.deleteExpenseItem.id를 받아줘야함
+  const deleteExpenseItem = (id) => {
+    console.log(id);
+    // 삭제 방법 1. filter
+    // true의 경우의 값만 필터링해서 새로운 배열을 만들겠다.
+    // 삭제를 누른 id를 제외하고 나머지 id들로 새로운 배열을 만들겠다.
+    const newFilteredArray = expenses.filter((item) => item.id != id);
+    setExpenses(newFilteredArray);
+  };
+
   return (
     <>
       <PaymentForm getPaymentFormData={getPaymentFormData} />
-      <Expenses items={expenses} />
+      <Expenses items={expenses} deleteExpenseItem={deleteExpenseItem} />
     </>
   );
 }
