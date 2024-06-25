@@ -18,6 +18,7 @@ const Expenses = (props) => {
           deleteExpenseItem={props.deleteExpenseItem}
           color={item.color}
           isChecked={item.isChecked}
+          imgUrl={item.imgUrl}
         />
       ))}
     </Card>

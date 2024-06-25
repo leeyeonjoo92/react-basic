@@ -12,6 +12,7 @@ function App() {
       date: new Date(2025, 8, 14),
       color: "#ffffff",
       isChecked: true,
+      imgUrl: "/logo192.png",
     },
     {
       id: "e2",
@@ -20,6 +21,7 @@ function App() {
       date: new Date(2025, 8, 14),
       color: "#000000",
       isChecked: false,
+      imgUrl: "/logo512.png",
     },
     {
       id: "e3",
@@ -40,6 +42,7 @@ function App() {
         date: new Date(data.today),
         color: data.color,
         isChecked: data.isChecked,
+        imgUrl: data.uploadFile,
       },
       ...expenses,
     ]);

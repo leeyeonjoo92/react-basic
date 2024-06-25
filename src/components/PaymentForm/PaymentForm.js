@@ -9,6 +9,7 @@ const PaymentForm = ({ getPaymentFormData }) => {
     today: new Date(),
     color: "transparent",
     isChecked: false,
+    uploadFile: null,
   });
 
   const inputTextHandler = (event) => {
@@ -46,6 +47,17 @@ const PaymentForm = ({ getPaymentFormData }) => {
     }));
   };
 
+  const inputFileHandler = (event) => {
+    const file = event.target.files[0];
+    const imgUrl = URL.createObjectURL(file);
+
+    setObjectState((prevState) => ({
+      ...prevState,
+      uploadFile: imgUrl,
+    }));
+    console.log(imgUrl);
+  };
+
   const buttonSubmitHander = (event) => {
     event.preventDefault();
 
@@ -56,6 +68,7 @@ const PaymentForm = ({ getPaymentFormData }) => {
       price: 0,
       today: new Date(),
       isChecked: false,
+      uploadFile: null,
     });
   };
 
@@ -107,6 +120,10 @@ const PaymentForm = ({ getPaymentFormData }) => {
               onChange={inputCheckboxHandler}
               checked={objectState.isChecked}
             />
+          </div>
+          <div className="new-payment__control">
+            <label>이미지 업로드</label>
+            <input type="file" onChange={inputFileHandler} />
           </div>
         </div>
         <div className="new-payment__actions">

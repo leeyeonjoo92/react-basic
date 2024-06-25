@@ -23,6 +23,13 @@ const ExpenseItem = (props) => {
         <div className="expense-item__checkbox">
           {props.isChecked ? "🖤" : "🤍"}
         </div>
+        <div style={{ width: "50px", height: "50px" }}>
+          <img
+            src={props.imgUrl}
+            alt={props.imgUrl}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
         <button onClick={() => props.deleteExpenseItem(props.index)}>
           삭제하기
         </button>
