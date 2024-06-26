@@ -22,25 +22,23 @@ const Expenses = (props) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
-  // 컴포넌트화 시켜줘야함
-  let expenseContent = <p>값이 없습니다.</p>;
-
-  // 한개라도 값이 있다면 -> 필터링했을때 값이 있다면
-  if (filteredExpenses.length > 0) {
-    // expenseContent에 필터링된 배열을 map을 돌려서
-    // 리스트에 나타냄
-    expenseContent = filteredExpenses.map((item) => (
-      <ExpenseItem title={item.title} amount={item.amount} date={item.date} />
-    ));
-  }
-
   return (
     <Card className="expenses">
       <ExpensesFilter
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
-      {expenseContent}
+      {filteredExpenses.length > 0 ? (
+        filteredExpenses.map((item) => (
+          <ExpenseItem
+            title={item.title}
+            amount={item.amount}
+            date={item.date}
+          />
+        ))
+      ) : (
+        <p>값이 없습니다.</p>
+      )}
     </Card>
   );
 };
