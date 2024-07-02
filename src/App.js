@@ -1,12 +1,3 @@
-<<<<<<< Updated upstream
-import './App.css';
-import NewPayment from './components/NewPayment/NewPayment';
-
-function App() {
-
-  return (
-    <NewPayment/>
-=======
 import React, { useContext } from 'react';
 
 import Login from './components/Login/Login';
@@ -25,7 +16,6 @@ function App() {
         {ctx.isLoggedIn && <Home />}
       </main>
     </React.Fragment>
->>>>>>> Stashed changes
   );
 }
 
