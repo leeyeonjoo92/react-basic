@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 // requestConfig -> 요청을 보낼때 필요한 url, method, body, content-type 등
 // applyData -> 받아온 데이터
-const useHttp = (requestConfig, applyData) => {
+// requestConfig, applyData가 sendRequest 안에서만 사용되고 있기 때문에 sendRequest의 매개변수로 넣어줘도됨
+const useHttp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const sendRequest = async () => {
+  // 컴포넌트가 리렌더링 될때마다 함수는 새로 생성됨 (값은 그대로)
+  // 값이 바뀔일이 있을때만 새로 생성이되고
+  // 바뀌지 않으면 값을 그대로 사용하면 될것같음 -> useCallback 사용
+  // 의존성 배열에 requestConfig, applyData 넣으면됨
+  const sendRequest = useCallback(async (requestConfig, applyData) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -30,13 +35,15 @@ const useHttp = (requestConfig, applyData) => {
       setError(err.message || "Something went wrong!");
     }
     setIsLoading(false);
-  };
+    // 값이 바뀔만한게 매개변수로 받는 requestConfig와 applyData 밖에 없음
+    // useHttp의 매개변수로 받던 requestConfig, applyData의 위치를 sendRequest로 옮겼기때문에 의존성 배열에 안넣어줘도됨
+  }, []);
 
-	return {
-		isLoading,
-		error,
-		sendRequest,
-	}
+  return {
+    isLoading,
+    error,
+    sendRequest,
+  };
 };
 
 export default useHttp;
