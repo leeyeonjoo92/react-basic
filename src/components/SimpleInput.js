@@ -9,6 +9,16 @@ const SimpleInput = (props) => {
   const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   const [enteredNameIsTouched, setEnteredNameIsTouched] = useState(false);
 
+  const nameInputChangeHandler = (event) => {
+    setEnteredName(event.target.value);
+    setEnteredNameIsTouched(true);
+
+    // event.target.value -> 값을 입력할때마다 가져옴
+    if (event.target.value.trim() === "") {
+      setEnteredNameIsValid(false);
+    } else setEnteredNameIsValid(true);
+  };
+
   const formSubmitHandler = (event) => {
     // form에서 button에 type을 적어주지 않으면 기본적으로 submit임
     // 기존 submit 새로고침 이벤트 막기
@@ -34,8 +44,17 @@ const SimpleInput = (props) => {
     setEnteredName("");
   };
 
-  const nameInputChangeHandler = (event) => {
-    setEnteredName(event.target.value);
+  const nameInputBlurHandler = (event) => {
+    console.log("event onBlur");
+    // blur이벤트도 어쨌든 터치가 일어났기 때문에 true
+    setEnteredNameIsTouched(true);
+
+    // 빈값이면
+    if (enteredName.trim() === "") {
+      // 유효하지 않음
+      setEnteredNameIsValid(false);
+      return;
+    }
   };
 
   // 처음에는 enteredNameIsValid가 당연히 빈값인데 에러메시지를 띄울필요가 없음
@@ -59,6 +78,8 @@ const SimpleInput = (props) => {
           ref={nameInputRef}
           value={enteredName}
           onChange={nameInputChangeHandler}
+          // 초점과 관련된 속성을 다룰때 onBlur 이벤트 사용
+          onBlur={nameInputBlurHandler}
         />
         {/* 4. 유효하지 않은 이름값일떄 에러 메시지 노출 */}
         {/* nameInputIsInValid가 true면 문구 뜨게 */}
