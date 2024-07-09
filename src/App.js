@@ -1,10 +1,15 @@
-import './App.css';
-import NewPayment from './components/NewPayment/NewPayment';
+import Counter from './components/Counter';
+import Auth from './components/Auth';
+import Header from './components/Header';
+
 
 function App() {
-
   return (
-    <NewPayment/>
+    <>
+      {/*<Header />*/}
+      {/*<Auth />*/}
+      <Counter />
+    </>
   );
 }
 
