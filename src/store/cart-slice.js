@@ -1,5 +1,63 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// get 요청으로 cart 데이터 받아옴
+export const fetchCartData = () => {
+  return async (dispatch) => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://react-test-925ac-default-rtdb.firebaseio.com/cart.json"
+      );
+
+      // fetch가 실패하면 에러메시지 띄우기
+      if (!response.ok) {
+        throw new Error("실패");
+      }
+
+      const data = await response.json();
+
+      return data;
+    };
+
+    try {
+      const cartData = await fetchData();
+      // 데이터를 받아왔으면 store에 업데이트 해줘야함
+      dispatch(cartActions.replaceCart(cartData));
+    } catch (error) {
+      // 에러처리
+    }
+  };
+};
+
+// put요청으로 cart 데이터를 보냄
+// cart 데이터를 받아서 보내는 로직
+export const sendCartData = (cart) => {
+  // 언젠가 액션으로 반환될수있는 함수
+  return async (dispatch) => {
+    // sendRequest를 수행하면 fetch가 실행
+    const sendRequest = async () => {
+      const response = await fetch(
+        "https://react-test-925ac-default-rtdb.firebaseio.com/cart.json",
+        {
+          method: "PUT",
+          // cart에 관한 값을 요청
+          body: JSON.stringify(cart),
+        }
+      );
+
+      // fetch가 실패하면 에러메시지 띄우기
+      if (!response.ok) {
+        throw new Error("실패");
+      }
+    };
+
+    try {
+      await sendRequest();
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+};
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -7,6 +65,10 @@ const cartSlice = createSlice({
     totalQuantity: 0,
   },
   reducers: {
+    replaceCart(state, action) {
+      state.totalQuantity = action.payload.totalQuantity;
+      state.items = action.payload.items;
+    },
     addItemToCart(state, action) {
       /*TODO- 여기에 코드를 작성해 주세요*/
       // ProductItem의 addToCartHandler 보면 id, title, price를 객체로 받아오고 있음
