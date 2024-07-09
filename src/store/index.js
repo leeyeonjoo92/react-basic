@@ -1,5 +1,5 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { createStore } from "redux";
+// import { createStore } from "redux";
 
 const initialState = { counter: 0, showCounter: true };
 
@@ -29,13 +29,35 @@ const counterSlice = createSlice({
   },
 });
 
+const initialAuthState = {
+  isAuthenticated: false,
+};
+
+const authSlice = createSlice({
+  name: "authentication",
+  initialState: initialAuthState,
+  reducers: {
+    // true, false만 받아주면 되기 때문에 action은 필요없음
+    login(state) {
+      state.isAuthenticated = true;
+    },
+    logout(state) {
+      state.isAuthenticated = false;
+    },
+  },
+});
+
 // configureStore : 여러개의 reducer를 하나의 store에서 관리할수있음
 const store = configureStore({
-  reducer: counterSlice.reducer,
+  reducer: {
+    counter: counterSlice.reducer,
+    auth: authSlice.reducer,
+  },
 });
 
 // slice.actions : 각 컴포넌트에서 바로 dispatch해서 쓸수있음
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 
 // const counterReducer = (state = initialState, action) => {
 //   if (action.type === "increment") {
