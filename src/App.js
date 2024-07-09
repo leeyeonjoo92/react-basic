@@ -1,10 +1,9 @@
-import './App.css';
-import NewPayment from './components/NewPayment/NewPayment';
+import Counter from './components/Counter';
+
 
 function App() {
-
   return (
-    <NewPayment/>
+    <Counter />
   );
 }
 
